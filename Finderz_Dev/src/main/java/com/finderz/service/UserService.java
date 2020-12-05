@@ -1,8 +1,8 @@
-package com.finderz.user.service;
+package com.finderz.service;
 
 import java.util.List;
 
-import com.finderz.user.model.User;
+import com.finderz.model.User;
 
 public interface UserService {
 
@@ -16,5 +16,5 @@ public interface UserService {
 
 	public void removeUser(int id);
 
-	public boolean loginUser(User p);
+	public User loginUser(User p);
 }

@@ -1,8 +1,8 @@
-package com.finderz.user.dao;
+package com.finderz.dao;
 
 import java.util.List;
 
-import com.finderz.user.model.User;
+import com.finderz.model.User;
 
 public interface UserDAO {
 
@@ -16,5 +16,5 @@ public interface UserDAO {
 
 	public void removeUser(int id);
 
-	public boolean loginUser(User user);
+	public User loginUser(User user);
 }

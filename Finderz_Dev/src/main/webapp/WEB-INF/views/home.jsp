@@ -7,146 +7,74 @@
 <html>
    <head>
       <link href="<c:url value="/resources/styles/home.css" />" rel="stylesheet" >
-      <style>
-      .button {
-  background-color: #4CAF50; /* Green */
-  border: none;
-  color: white;
-  padding: 15px 32px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 16px;
-}
-
-#search_sec div select {
-    padding: 10px 20px;
-    border-radius: 10px;
-    margin: 5px;
-    border: solid 1px #999999;
-    background-color: white;
-</style>
-      
+      <script src="<c:url value="/resources/js/home.js"/>"></script>
    </head>
    <body>
       <header>
-         <a href='<c:url value="/" />'><span class="logo"><img src="<c:url value="/resources/images/logo.svg" />"></span></a>
+         <a href="<c:url value="/home/${user.user_id}" />"><span class="logo"><img src="<c:url value="/resources/images/logo.svg" />"></span></a>
          <%-- <span class="right_menu" > <img src="<c:url value="/resources/images/menu.png" />"> </span> --%>
          <span class="menu">
+         
             <ul>
-               <!-- <li> <a href="post_ads.jsp">Post Ads</a></li> -->
-               <%-- <li> <a href="${pageContext.request.contextPath}/main/webapp/WEB-INF/views/list_property.jsp">List Property</a></li> --%>
+               <li> <a href="<c:url value="/User/post_ads/${user.user_id}" />">Post Ads</a></li>
+               <%-- <li> <a href="#" onclick="moveToListProperty('${user.user_id}')">List Property</a></li> --%>
+               <li> <a href="<c:url value="/User/listProperty/${user.user_id}" />">List Property</a>
+               <li><a href="<c:url value="../User/contactUs/${user.user_id}" />">Contact Us</a></li>
+               <li><a href="#popup3" class="button">My Account</a></li>
+               <li><a href="<c:url value="/logout/${user.user_id}" />">Logout</a></li>
                <!-- <li> <a href="#">Favorites</a></li> -->
-               <%-- <li><a href="<c:url value="/User/contactUs" />">Contact Us</a></li> --%>
-               <li><a href="#popup1">Login</a></li>
+               <!-- <li><a href="#">News</a></li> -->
+               <!-- <li><a href="#popup1">Login</a></li> -->
             </ul>
          </span>
       </header>
       <section id="header_sec">
          <h2> Rent in Canada </h2>
          <div id="rent_btn">
-            <button> Search Property </button>
+            <button> RENT </button>
          </div>
          <div>
             <span class="arrow-down"></span>
          </div>
          <div id="search_sec">
             <div>
-    <select id="price" name="price">
-	<option value="0">Select price</option>
-	<option value="1">Less than $500</option>
-	<option value="2">Bet $500-$1000</option>
-	<option value="3">Bet $1000-$1500</option>
-	<option value="4">Bet $1500-$2000</option>
-	<option value="5">Bet $2000-$2500</option>
-	<option value="6">Bet $2500-$3000</option>
-	<option value="7">More than $3000</option>
-</select>
-
- <select id="price" name="no_of_beds">
-	<option value="0">No of bed</option>
-	<option value="1">1</option>
-	<option value="2">2</option>
-	<option value="3">3</option>
-	<option value="4">4</option>
-	<option value="5">5</option>
-	<option value="6">6</option>
-</select>
- <select id="price" name="no_of_baths">
-	<option value="0">No of bath</option>
-	<option value="1">1</option>
-	<option value="2">2</option>
-	<option value="3">3</option>
-	<option value="4">4</option>
-</select>
+               <input placeholder="Enter Keywords" />
                <input placeholder="Search for locality, landmark, project, or builder" />
                <button> Search </button>
             </div>
          </div>
 
-         <div class="bg" src="images/bg.png"> </div>
+         <div class="bg" src="<c:url value="/resources/images/bg.png" /> "> </div>
       </section>
-      <section class="featured_sec">
+      <!-- <section class="featured_sec"> -->
+      <!-- <div class="sec_content"> -->
+         <section id="header_sec_rentals" style="margin-bottom:10px">
+         <h2> Featured Properties </h2>
+      </section>
+            <c:forEach items="${propertyList}" var="property">
+      <section class="sec_card">
       <div class="sec_content">
-         <h2>Featured Properties </h2>
-            <div class="card">
-               <div class="image">
-                  <span class="tag"> For Sale </span>
-                  <span class="price"> $1300 </span>
-                  <img src="<c:url value="/resources/images/card1.jpg" /> ">
-               </div>
-               <div class="container">
-                  <p class="small_p">Apartment</p>
-                  <h4><b>John Doe</b></h4>
-                  <p>200 CSt, Ottawa, ON K2P 2K9</p>
-                  <p><span>Beds: 4</span> <span>Beds: 4</span> <span>Beds: 4</span></p>
-               </div>
-               <div class="divider" > </div>
-               <div class="footer">
-                  <img src="<c:url value="/resources/images/card1.jpg" /> ">
-                  <span> Jhon </span>
-               </div>
+         <div class="card">
+            <div class="image">
+               <img src="<c:url value="${property.advertisement_image}" />">
             </div>
-            <div class="card">
-               <div class="image">
-                  <span class="tag"> For Sale </span>
-                  <span class="price"> $1300 </span>
-                  <img src="<c:url value="/resources/images/card1.jpg" /> ">
-               </div>
-               <div class="container">
-                  <p class="small_p">Apartment</p>
-                  <h4><b>John Doe</b></h4>
-                  <p>200 CSt, Ottawa, ON K2P 2K9</p>
-                  <p><span>Beds: 4</span> <span>Beds: 4</span> <span>Beds: 4</span></p>
-               </div>
-               <div class="divider" > </div>
+            <div class="container">
+               <h4><b>${property.advertisement_title}</b></h4>
+               <p><span class="circle_badge">${property.ad_no_of_bedrooms}</span> Bed    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;    <span class="circle_badge">${property.ad_no_of_bathrooms}</span> Bath</p>
+               <p><b>Price: $${property.advertisement_price}</b></p>
+               <p><b>Location: East Scarborough</b></p>
+               <p class="details">${property.advertisement_description}</p>
                <div class="footer">
-                  <img src="<c:url value="/resources/images/card1.jpg" /> ">
-                  <span> Jhon </span>
-                  <span class="date"> 4 years ago </span>
-               </div>
-            </div>
-            <div class="card">
-               <div class="image">
-                  <span class="tag"> For Sale </span>
-                  <span class="price"> $1300 </span>
-                  <img src="<c:url value="/resources/images/card1.jpg" /> ">
-               </div>
-               <div class="container">
-                  <p class="small_p">Apartment</p>
-                  <h4><b>John Doe</b></h4>
-                  <p>200 CSt, Ottawa, ON K2P 2K9</p>
-                  <p><span>Beds: 4</span> <span>Beds: 4</span> <span>Beds: 4</span></p>
-               </div>
-               <div class="divider" > </div>
-               <div class="footer">
-                  <img src="<c:url value="/resources/images/card1.jpg" /> ">
-                  <span> Jhon </span>
-                  <span class="date"> 4 years ago </span>
+                  <button>Housing News Desk</button>
+                  <p class="small_p">${property.advertisement_date}</p>
                </div>
             </div>
          </div>
+         </div>
       </section>
+      </c:forEach>
+         <!-- </div> -->
+      </section><!--  -->
       <section class="news">
       <div class="sec_content">
          <h2>News & Articles</h2>
@@ -365,7 +293,7 @@
 		<a class="close" href="#">&times;</a>
 		<div class="content">
 		<!-- login form start here----------- -------------->
-		<form:form action="${pageContext.request.contextPath}/User/login" method="post" commandName="user">
+		<form:form action="user/login" method="post" commandName="user">
          <form:input placeholder="EMAIL"  type="text"  name="email" path="user_email"/>
          <form:input placeholder="PASSWORD" type="password" name="password" path="user_password"/>
          <button type="submit"> LOGIN </button>
@@ -386,7 +314,8 @@
 		<a class="close" href="#">&times;</a>
 		<div class="content">
 		<!-- login form start here----------- -------------->
-		<form:form action="User/add" method="post" commandName="user" >
+		<form:form action="user/add" method="post" commandName="user" >
+		<form:hidden path="user_id"/>
 		<form:input placeholder="First Name"  type="text"  name="fname" path="user_first_name" />
 		<form:input placeholder="Last Name"  type="text" name="lname" path="user_last_name"  />
 		<form:input placeholder="Email"  type="text" name="email" path="user_email"  />
@@ -407,7 +336,8 @@
 		<a class="close" href="#">&times;</a>
 		<div class="content">
 		<!-- login form start here----------- -------------->
-		<form:form action="User/add" method="post" commandName="user">
+		<form:form action="../User/add" method="post" commandName="user">
+		<form:hidden path="user_id"/>
 		<form:input placeholder="First Name"  type="text"  name="fname" path="user_first_name" />
 		<form:input placeholder="Last Name"  type="text" name="lname" path="user_last_name"  />
 		<form:input placeholder="Email"  type="text" name="email" path="user_email"  />

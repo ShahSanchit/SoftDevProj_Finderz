@@ -1,4 +1,4 @@
-package com.finderz.user.model;
+package com.finderz.model;
 
 import java.util.Date;
 

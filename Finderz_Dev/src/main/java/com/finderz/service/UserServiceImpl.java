@@ -1,12 +1,12 @@
-package com.finderz.user.service;
+package com.finderz.service;
 
 import java.util.List;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.finderz.user.dao.UserDAO;
-import com.finderz.user.model.User;
+import com.finderz.dao.UserDAO;
+import com.finderz.model.User;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -49,7 +49,7 @@ public class UserServiceImpl implements UserService {
 	
 	@Override
 	@Transactional
-	public boolean loginUser(User p) {
+	public User loginUser(User p) {
 		return this.userDAO.loginUser(p);
 	}
 

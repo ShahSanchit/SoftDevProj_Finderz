@@ -39,7 +39,9 @@
 		<beans:property name="dataSource" ref="dataSource" />
 		<beans:property name="annotatedClasses">
 			<beans:list>
-				<beans:value>com.finderz.user.model.User</beans:value>
+				<beans:value>com.finderz.model.User</beans:value>
+				<beans:value>com.finderz.model.Property</beans:value>
+				<beans:value>com.finderz.model.Address</beans:value>
 			</beans:list>
 		</beans:property>
 		<beans:property name="hibernateProperties">
@@ -51,13 +53,19 @@
 		</beans:property>
 	</beans:bean>
 	
-	<beans:bean id="userDAO" class="com.finderz.user.dao.UserDAOImpl">
+	<beans:bean id="userDAO" class="com.finderz.dao.UserDAOImpl">
 		<beans:property name="sessionFactory" ref="hibernate4AnnotatedSessionFactory" />
 	</beans:bean>
-	<beans:bean id="userService" class="com.finderz.user.service.UserServiceImpl">
+	<beans:bean id="userService" class="com.finderz.service.UserServiceImpl">
 		<beans:property name="userDAO" ref="userDAO"></beans:property>
 	</beans:bean>
-	<context:component-scan base-package="com.finderz.user" />
+	<beans:bean id="propertyDAO" class="com.finderz.dao.PropertyDAOImpl">
+		<beans:property name="sessionFactory" ref="hibernate4AnnotatedSessionFactory" />
+	</beans:bean>
+	<beans:bean id="propertyService" class="com.finderz.service.PropertyServiceImpl">
+		<beans:property name="propertyDAO" ref="propertyDAO"></beans:property>
+	</beans:bean>
+	<context:component-scan base-package="com.finderz.controllers" />
 	
 	<tx:annotation-driven transaction-manager="transactionManager"/>
 	

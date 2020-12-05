@@ -1,4 +1,4 @@
-package com.finderz.user.dao;
+package com.finderz.dao;
 
 import java.util.List;
 
@@ -8,9 +8,10 @@ import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Repository;
 
-import com.finderz.user.model.User;
+import com.finderz.model.User;
 
 @Repository
 public class UserDAOImpl implements UserDAO {
@@ -33,7 +34,10 @@ public class UserDAOImpl implements UserDAO {
 	@Override
 	public void updateUser(User p) {
 		Session session = this.sessionFactory.getCurrentSession();
-		session.update(p);
+		User loadedUser = (User) session.load(p.getClass(), p.getUser_id());
+		BeanUtils.copyProperties(p, loadedUser);
+		session.update(loadedUser);
+		
 		logger.info("User updated successfully, User Details=" + p);
 	}
 
@@ -67,16 +71,16 @@ public class UserDAOImpl implements UserDAO {
 	}
 
 	@Override
-	public boolean loginUser(User p) {
+	public User loginUser(User p) {
 		Session session = this.sessionFactory.getCurrentSession();
 		Criteria loginCriteria = session.createCriteria(p.getClass());
 		loginCriteria.add(Restrictions.eq("user_email", p.getUser_email()));
 		loginCriteria.add(Restrictions.eq("user_password", p.getUser_password()));
 		List loginCriteriaResult = loginCriteria.list();
 		if (loginCriteriaResult != null && loginCriteriaResult.size() == 1) {
-			return true;
+			return (User) loginCriteriaResult.get(0);
 		} else {
-			return false;
+			return null;
 		}
 	}
 }
